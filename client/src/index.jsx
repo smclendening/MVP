@@ -8,13 +8,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      foodList: [{
-        name: 'Tri-Tip',
-        cals: 50
-      }, {
-        name: 'Subway',
-        cals: 500
-      }],
+      foodList: null,
       currentFood: null,
     };
   }
@@ -50,7 +44,7 @@ class App extends React.Component {
         <h3>A meal tracker for tri tip lovers.</h3>
         <h5>You can track other foods besides Tri Tip too.</h5>
         <h6>"Greed is Good" - Edward Chan</h6>
-        <FoodList foodList={this.state.foodList}/>
+        {this.state.foodList ? <FoodList foodList={this.state.foodList}/> : '...loading'}
       </div>
     )
   }
