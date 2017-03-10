@@ -16,7 +16,7 @@ app.use(express.static(__dirname + '/../client/dist'));
 // ex: get /food 
 app.get('/food', function(req, res) {
   // send back list of transactions 
-  res.writeHead(200);
+  res.writeHead(200, {'Content-Type': 'application/json'});
   var data = [{
         name: 'Tri-Tip',
         cals: 50

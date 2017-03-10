@@ -27,10 +27,10 @@ class App extends React.Component {
       success: (data) => {
         if (data) {
         console.log('success: ', data);
-        console.log('parsed: ', JSON.parse(data));
+        // console.log('parsed: ', JSON.parse(data));
         // this automatically parses it because we set content/type 
           this.setState({
-            foodList: JSON.parse(data)
+            foodList: data
           })
           
         } else {
