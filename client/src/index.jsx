@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import FoodList from './components/FoodList.jsx';
 import FoodBar from './components/FoodBar.jsx';
+import Search from './components/Search.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -43,7 +44,6 @@ class App extends React.Component {
   }
 
   onFoodBarClick(food, cals, comment) {
-    console.log(food, cals, comment);
     $.ajax({
       url:'http://localhost:8080/food',
       method: 'POST',
@@ -59,6 +59,13 @@ class App extends React.Component {
     console.log('getting food outside request');
     // why does this.getFood() happen outside of the ajax request?
     this.getFood();
+
+
+  }
+
+  onSearch(query) {
+    // search nutritionx API
+    console.log('app query: ', query);
   }
 
   render() {
@@ -66,6 +73,7 @@ class App extends React.Component {
       <div>
         <h1>Tri Trip</h1>
         <h3>"Greed is Good" - Edward Chan</h3>
+        <Search onSearch={this.onSearch}/>
         <FoodBar onClick={this.onFoodBarClick}/>
         {this.state.foodList ? <FoodList foodList={this.state.foodList}/> : '...loading'}
       </div>
