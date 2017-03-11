@@ -1,6 +1,6 @@
 var server = require('../server');
 
-var data = [{name: 'Tri-Tip', cals: 50}, {name: 'Subway', cals: 500}];
+var data = [{name: 'Tri-Tip', cals: 50, comment: 'Wow!'}, {name: 'Subway', cals: 500, comment: 'Hmmmm'}];
 
 
 module.exports = {
@@ -19,7 +19,6 @@ module.exports = {
     });
     req.on('end', () => {
         // we have our body
-      console.log(body);
       var newFood = JSON.parse(body);
       data.push(newFood);
       // probably have to JSON parse it 

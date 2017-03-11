@@ -6,8 +6,6 @@ var handler = require('./request-handler');
 
 var app = express();
 
-module.exports.app = app;
-
 // serve the static files
 app.use(express.static(__dirname + '/../client/dist'));
 
@@ -19,4 +17,4 @@ app.post('/food', handler.post);
 
 app.listen(8080, function() {
   console.log('listening on port 8080');
-})
+});

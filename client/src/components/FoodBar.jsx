@@ -5,11 +5,13 @@ class FoodBar extends React.Component {
     super(props)
     this.state = {
       food: '',
-      calories: ''
+      calories: '',
+      comment: ''
     }
 
     this.handleFoodChange = this.handleFoodChange.bind(this);
     this.handleCalChange = this.handleCalChange.bind(this);
+    this.handleCommentChange = this.handleCommentChange.bind(this);
   }
 
   handleFoodChange(e) {
@@ -20,6 +22,11 @@ class FoodBar extends React.Component {
   handleCalChange(e) {
     e.preventDefault();
     this.setState({calories: e.target.value})
+  }
+
+  handleCommentChange(e) {
+    e.preventDefault();
+    this.setState({comment: e.target.value});
   }
 
   // not sure why onBlur works but onChange doesn't - look into this later
@@ -33,7 +40,8 @@ class FoodBar extends React.Component {
         <form>
           Food: <input id="food input" type="text" onBlur={this.handleFoodChange} />
           Calories: <input id="cal input" type="text" onBlur={this.handleCalChange} />
-        <button type="button" onClick={() => this.props.onClick(this.state.food, this.state.calories)}>Submit</button>
+          Comment: <input id="comment input" type="text" onBlur={this.handleCommentChange} />
+        <button type="button" onClick={() => this.props.onClick(this.state.food, this.state.calories, this.state.comment)}>Submit</button>
         </form>
       </div>
     )

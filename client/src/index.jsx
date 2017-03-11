@@ -17,6 +17,11 @@ class App extends React.Component {
 
   componentDidMount() {
     // when App renders, load food items (if any)
+    this.getFood();
+  }
+
+  getFood() {
+    console.log('getting food');
     $.ajax({
       url: 'http://localhost:8080/food',
       method: 'GET',
@@ -37,30 +42,30 @@ class App extends React.Component {
     });
   }
 
-  onFoodBarClick(food, cals) {
-    console.log(food, cals);
+  onFoodBarClick(food, cals, comment) {
+    console.log(food, cals, comment);
     $.ajax({
       url:'http://localhost:8080/food',
       method: 'POST',
       headers: {'Content-Type': 'application-json'},
-      data: JSON.stringify({name: food, cals: cals}),
+      data: JSON.stringify({name: food, cals: cals, comment: comment}),
       success: (data) => {
-        console.log('success in click: ', data);
-        this.render();
+        console.log('getting food in success');
       },
       error: function(err) {
         console.log('error in foodbarclick', err)
       }
     });
+    console.log('getting food outside request');
+    // why does this.getFood() happen outside of the ajax request?
+    this.getFood();
   }
 
   render() {
     return (
       <div>
         <h1>Tri Trip</h1>
-        <h3>A meal tracker for tri tip lovers.</h3>
-        <h5>You can track other foods besides Tri Tip too.</h5>
-        <h6>"Greed is Good" - Edward Chan</h6>
+        <h3>"Greed is Good" - Edward Chan</h3>
         <FoodBar onClick={this.onFoodBarClick}/>
         {this.state.foodList ? <FoodList foodList={this.state.foodList}/> : '...loading'}
       </div>

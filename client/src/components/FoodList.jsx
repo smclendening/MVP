@@ -3,7 +3,7 @@ import Food from './Food.jsx'
 
 const FoodList = (props) => (
   <div>
-    {props.foodList.map( (food) => <Food name={food.name} cals={food.cals} />)}
+    {props.foodList.map( (food) => <Food name={food.name} cals={food.cals} comment={food.comment}/>)}
   </div>
 )
 
