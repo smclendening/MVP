@@ -22,7 +22,7 @@ class App extends React.Component {
       method: 'GET',
       success: (data) => {
         if (data) {
-        console.log('success: ', data);
+        console.log('success in mount: ', data);
           this.setState({
             foodList: data
           })
@@ -39,6 +39,19 @@ class App extends React.Component {
 
   onFoodBarClick(food, cals) {
     console.log(food, cals);
+    $.ajax({
+      url:'http://localhost:8080/food',
+      method: 'POST',
+      headers: {'Content-Type': 'application-json'},
+      data: JSON.stringify({name: food, cals: cals}),
+      success: (data) => {
+        console.log('success in click: ', data);
+        this.render();
+      },
+      error: function(err) {
+        console.log('error in foodbarclick', err)
+      }
+    });
   }
 
   render() {
