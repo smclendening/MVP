@@ -12,6 +12,7 @@ class App extends React.Component {
     this.state = {
       foodList: null,
       searchResults: null,
+      caloriesToday: 0
     };
 
     this.addFood = this.addFood.bind(this);
@@ -62,6 +63,11 @@ class App extends React.Component {
     // why does this.getFood() happen outside of the ajax request?
     this.getFood();
 
+    var currentCalories = this.state.caloriesToday;
+
+    this.setState({
+      caloriesToday: currentCalories + Number(cals)
+    })
 
   }
 
@@ -98,8 +104,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>Tri Trip</h1>
-        <h3>"Greed is Good" - Edward Chan</h3>
+        <h1>Food</h1>
+        <h4>Motivational Quote of the Day: "Greed is Good" - Edward Chan | Total Calories Today: {this.state.caloriesToday}</h4>
         <Search onSearch={this.onSearch}/>
         {this.state.searchResults ? <SearchResults results={this.state.searchResults} onClick={this.addFood} /> : ''}
         <FoodBar onClick={this.addFood}/>
