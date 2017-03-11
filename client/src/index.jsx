@@ -10,10 +10,11 @@ class App extends React.Component {
     super();
     this.state = {
       foodList: null,
-      currentFood: null,
+      searchResults: null,
     };
 
     this.onFoodBarClick = this.onFoodBarClick.bind(this);
+    this.onSearch = this.onSearch.bind(this);
   }
 
   componentDidMount() {
@@ -65,7 +66,30 @@ class App extends React.Component {
 
   onSearch(query) {
     // search nutritionx API
-    console.log('app query: ', query);
+    var options = '?results=0:5&fields=item_name,brand_name,nf_calories&appId=1d3d2317&appKey=3c775b5d05a623ee9d8272a46ef870e3'
+    $.ajax({
+      url: 'https://api.nutritionix.com/v1_1/search/' + query + options,
+      method: 'GET',
+      success: (data) => {
+        // {hits: [{fields: {brand_name: '', item_name: '', nf_calories: ''}}]}
+        console.log('api query results: ', data);
+        var results = [];
+
+        data.hits.forEach(function(result) {
+          var option = {brand: result.fields.brand_name, item: result.fields.item_name, cals: result.fields.nf_calories};
+          results.push(option);
+        });
+
+        this.setState({
+          searchResults: results
+        });
+
+        console.log(results);
+      },
+      error: (err) => {
+        console.log('error on api query: ', err);
+      }
+    });
   }
 
   render() {
@@ -74,6 +98,7 @@ class App extends React.Component {
         <h1>Tri Trip</h1>
         <h3>"Greed is Good" - Edward Chan</h3>
         <Search onSearch={this.onSearch}/>
+        {this.state.searchResults ? <SearchResults results={this.state.searchResults} /> : ''}
         <FoodBar onClick={this.onFoodBarClick}/>
         {this.state.foodList ? <FoodList foodList={this.state.foodList}/> : '...loading'}
       </div>
