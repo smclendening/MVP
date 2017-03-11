@@ -12,16 +12,19 @@ class App extends React.Component {
     this.state = {
       foodList: null,
       searchResults: null,
-      caloriesToday: 0
+      caloriesToday: 0,
+      latestID: 0
     };
 
     this.addFood = this.addFood.bind(this);
     this.onSearch = this.onSearch.bind(this);
+    this.getCalories = this.getCalories.bind(this);
   }
 
   componentDidMount() {
     // when App renders, load food items (if any)
     this.getFood();
+    this.getCalories();
   }
 
   getFood() {
@@ -46,12 +49,37 @@ class App extends React.Component {
     });
   }
 
+  getCalories() {
+    $.ajax({
+      url: 'http://localhost:8080/calories',
+      method: 'GET',
+      success: (data) => {
+        if (data) {
+          console.log('inside get calories: ', data);
+          var totalCals = 0;
+          data.forEach(function(entry) {
+            totalCals += Number(entry.cals);
+          });
+
+          this.setState({
+            caloriesToday: totalCals
+          })
+        } else {
+          console.log('no data');
+        }
+      },
+      error: function(err) {
+        console.log('error in get calories');
+      }
+    });
+  }
+
   addFood(food, cals, comment) {
     $.ajax({
       url:'http://localhost:8080/food',
       method: 'POST',
       headers: {'Content-Type': 'application-json'},
-      data: JSON.stringify({name: food, cals: cals, comment: comment}),
+      data: JSON.stringify({name: food, cals: cals, comment: comment, id: this.state.latestID}),
       success: (data) => {
         console.log('getting food in success');
       },
@@ -63,12 +91,16 @@ class App extends React.Component {
     // why does this.getFood() happen outside of the ajax request?
     this.getFood();
 
-    var currentCalories = this.state.caloriesToday;
+    //var currentCalories = this.state.caloriesToday;
+    var lastID = this.state.latestID;
 
-    this.setState({
-      caloriesToday: currentCalories + Number(cals)
-    })
+    // this.setState({
+    //   caloriesToday: currentCalories + Number(cals),
+    //   latestID: lastID + 1
+    // })
 
+    this.getCalories();
+    console.log('should be getting calories');
   }
 
   onSearch(query) {

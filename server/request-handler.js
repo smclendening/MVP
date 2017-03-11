@@ -3,7 +3,7 @@ var FoodModel = require('../db');
 // var data = [{name: 'Tri-Tip', cals: 50, comment: 'Wow!'}, {name: 'Subway', cals: 500, comment: 'Hmmmm'}];
 var Promise = require('Bluebird');
 
-module.exports = {
+module.exports.food = {
   'get': function(req, res) {
     res.writeHead(200, {'Content-Type': 'application/json'});
 
@@ -34,5 +34,22 @@ module.exports = {
       }); // should be saved now 
       res.writeHead(201, {'access-control-allow-origin': '*'});
     });
+  }
+}
+
+module.exports.calories = {
+  'get': function(req, res) {
+    res.writeHead(200, {'Content-Type': 'application/json'});
+
+    var promise = FoodModel.find({}, {cals: 1}).exec();
+
+    promise.then(function(cals) {
+      console.log('data inside cal get request: ', cals);
+      // array of objs w/ cal property
+      res.end(JSON.stringify(cals));
+    })
+    .catch(function(err) {
+      console.log('error in cal get request', err);
+    })
   }
 }
