@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import FoodList from './components/FoodList.jsx';
-
+import FoodBar from './components/FoodBar.jsx';
 
 class App extends React.Component {
   constructor() {
@@ -21,8 +21,6 @@ class App extends React.Component {
       success: (data) => {
         if (data) {
         console.log('success: ', data);
-        // console.log('parsed: ', JSON.parse(data));
-        // this automatically parses it because we set content/type 
           this.setState({
             foodList: data
           })
@@ -44,6 +42,7 @@ class App extends React.Component {
         <h3>A meal tracker for tri tip lovers.</h3>
         <h5>You can track other foods besides Tri Tip too.</h5>
         <h6>"Greed is Good" - Edward Chan</h6>
+        <FoodBar />
         {this.state.foodList ? <FoodList foodList={this.state.foodList}/> : '...loading'}
       </div>
     )

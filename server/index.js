@@ -15,6 +15,7 @@ app.use(express.static(__dirname + '/../client/dist'));
 // set up routes
 app.get('/food', handler.get);
 
+app.post('/food', handler.post);
 
 app.listen(8080, function() {
   console.log('listening on port 8080');
