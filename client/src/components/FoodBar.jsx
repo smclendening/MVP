@@ -11,7 +11,7 @@ class FoodBar extends React.Component {
         <form>
           Food: <input id="food input" type="text"  />
           Calories: <input id="cal input" type="text" />
-          <button type="button">Submit</button>
+          <button type="button" onClick={this.props.onClick}>Submit</button>
         </form>
       </div>
     )

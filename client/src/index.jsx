@@ -35,6 +35,10 @@ class App extends React.Component {
     });
   }
 
+  onFoodBarClick() {
+    console.log('food bar click');
+  }
+
   render() {
     return (
       <div>
@@ -42,7 +46,7 @@ class App extends React.Component {
         <h3>A meal tracker for tri tip lovers.</h3>
         <h5>You can track other foods besides Tri Tip too.</h5>
         <h6>"Greed is Good" - Edward Chan</h6>
-        <FoodBar />
+        <FoodBar onClick={this.onFoodBarClick.bind(this)}/>
         {this.state.foodList ? <FoodList foodList={this.state.foodList}/> : '...loading'}
       </div>
     )
