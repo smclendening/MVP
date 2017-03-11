@@ -1,0 +1,17 @@
+#app {
+  background-color: #e6f9ff;
+}
+
+#food-list {
+  width: 80%;
+  font-family: tahoma;
+  border-collapse: collapse;
+  font-size: 86%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 1px;
+}
+
