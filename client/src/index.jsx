@@ -14,7 +14,7 @@ class App extends React.Component {
       searchResults: null,
     };
 
-    this.onFoodBarClick = this.onFoodBarClick.bind(this);
+    this.addFood = this.addFood.bind(this);
     this.onSearch = this.onSearch.bind(this);
   }
 
@@ -45,7 +45,7 @@ class App extends React.Component {
     });
   }
 
-  onFoodBarClick(food, cals, comment) {
+  addFood(food, cals, comment) {
     $.ajax({
       url:'http://localhost:8080/food',
       method: 'POST',
@@ -101,8 +101,8 @@ class App extends React.Component {
         <h1>Tri Trip</h1>
         <h3>"Greed is Good" - Edward Chan</h3>
         <Search onSearch={this.onSearch}/>
-        {this.state.searchResults ? <SearchResults results={this.state.searchResults} /> : ''}
-        <FoodBar onClick={this.onFoodBarClick}/>
+        {this.state.searchResults ? <SearchResults results={this.state.searchResults} onClick={this.addFood} /> : ''}
+        <FoodBar onClick={this.addFood}/>
         {this.state.foodList ? <FoodList foodList={this.state.foodList}/> : '...loading'}
       </div>
     )

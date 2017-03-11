@@ -1,9 +1,9 @@
 import React from 'react';
 
 const Option = (props) => (
-  <div class="option">
+  <li class="option" onClick={() => props.onClick(props.item, props.cals, 'new test')}>
     {props.brand}: {props.item} --- {props.cals} Calories
-  </div>
+  </li>
 )
 
 export default Option;
