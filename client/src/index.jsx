@@ -4,6 +4,7 @@ import $ from 'jquery';
 import FoodList from './components/FoodList.jsx';
 import FoodBar from './components/FoodBar.jsx';
 import Search from './components/Search.jsx';
+import SearchResults from './components/SearchResults.jsx'
 
 class App extends React.Component {
   constructor() {
@@ -84,12 +85,14 @@ class App extends React.Component {
           searchResults: results
         });
 
-        console.log(results);
+        console.log(this.state.searchResults);
       },
       error: (err) => {
         console.log('error on api query: ', err);
       }
     });
+
+    //this.renderResults();
   }
 
   render() {
