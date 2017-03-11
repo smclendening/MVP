@@ -1,8 +1,9 @@
 import React from 'react';
 
+
 const Food = (props) => (
   <div>
-    {props.name}: {props.cals} Calories --- {props.comment}
+    <b>{props.date}</b> --- {props.name} --- {props.cals} calories --- {props.comment}
   </div>
 )
 
