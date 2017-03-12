@@ -18,7 +18,8 @@ class App extends React.Component {
       searchResults: null,
       caloriesToday: 0,
       favorites: [],
-      hates: []
+      hates: [],
+      fattestFood: null
     };
 
     this.addFood = this.addFood.bind(this);
@@ -29,6 +30,7 @@ class App extends React.Component {
     this.handleFavorite = this.handleFavorite.bind(this);
     this.handleHate = this.handleHate.bind(this);
     this.deleteFood = this.deleteFood.bind(this);
+    this.getFattest = this.getFattest.bind(this);
   }
 
   componentDidMount() {
@@ -37,6 +39,21 @@ class App extends React.Component {
     this.getCalories();
     this.getFavorites();
     this.getHates();
+    this.getFattest();
+  }
+
+  getFattest() {
+    var foods = this.state.foodList;
+    var fattest = foods.reduce(function(prev, cur) {
+      return Number(prev.cals) > Number(cur.cals) ? prev : cur;
+    });
+
+    console.log('fattest now hmm', fattest);
+
+    this.setState({
+      'fattestFood': fattest
+    })
+
   }
 
   getFood() {
@@ -123,6 +140,7 @@ class App extends React.Component {
     });
     this.getFood();
     this.getCalories();
+    this.getFattest();
   }
 
   onSearch(query) {
@@ -255,7 +273,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>Food</h1>
-        <TopBar calories={this.state.caloriesToday}/>
+        <TopBar calories={this.state.caloriesToday} fattest={this.state.fattestFood ? this.state.fattestFood : {cals: 0, name: 'hmm'}}/>
         <Search onSearch={this.onSearch}/>
         {this.state.searchResults ? <SearchResults results={this.state.searchResults} onClick={this.addFood} /> : ''}
         <FoodBar onClick={this.addFood}/>
