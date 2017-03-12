@@ -6,7 +6,8 @@ import FoodBar from './components/FoodBar.jsx';
 import Search from './components/Search.jsx';
 import SearchResults from './components/SearchResults.jsx';
 import Favorites from './components/Favorites.jsx';
-import Hates from './components/Hates.jsx'
+import Hates from './components/Hates.jsx';
+import TopBar from './components/TopBar.jsx';
 import helpers from './helpers.js'
 
 class App extends React.Component {
@@ -254,7 +255,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>Food</h1>
-        <h4>Motivational Quote of the Day: "Greed is Good" - Edward Chan | Total Calories Today: {this.state.caloriesToday}</h4>
+        <TopBar calories={this.state.caloriesToday}/>
         <Search onSearch={this.onSearch}/>
         {this.state.searchResults ? <SearchResults results={this.state.searchResults} onClick={this.addFood} /> : ''}
         <FoodBar onClick={this.addFood}/>
