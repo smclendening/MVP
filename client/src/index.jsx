@@ -6,6 +6,7 @@ import FoodBar from './components/FoodBar.jsx';
 import Search from './components/Search.jsx';
 import SearchResults from './components/SearchResults.jsx';
 import Favorites from './components/Favorites.jsx';
+import Hates from './components/Hates.jsx'
 import helpers from './helpers.js'
 
 class App extends React.Component {
@@ -15,13 +16,15 @@ class App extends React.Component {
       foodList: null,
       searchResults: null,
       caloriesToday: 0,
-      favorites: []
+      favorites: [],
+      hated: []
     };
 
     this.addFood = this.addFood.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this.getCalories = this.getCalories.bind(this);
     this.handleFavorite = this.handleFavorite.bind(this);
+    this.handleHate = this.handleHate.bind(this);
     this.deleteFood = this.deleteFood.bind(this);
   }
 
@@ -29,6 +32,7 @@ class App extends React.Component {
     // when App renders, load food items (if any)
     this.getFood();
     this.getCalories();
+    this.getFavorites();
   }
 
   getFood() {
@@ -105,7 +109,7 @@ class App extends React.Component {
       url:'http://localhost:8080/food',
       method: 'POST',
       headers: {'Content-Type': 'application-json'},
-      data: JSON.stringify({name: food, cals: cals, comment: comment, id: ID}),
+      data: JSON.stringify({name: food, cals: cals, comment: comment, id: ID, attributes: ''}),
       success: (data) => {
         console.log('getting food in success');
       },
@@ -147,14 +151,69 @@ class App extends React.Component {
     //this.renderResults();
   }
 
-  handleFavorite(foodName) {
+  handleFavorite(id) {
+
+    $.ajax({
+      url: 'http://localhost:8080/favorites',
+      method: 'POST',
+      headers: {'Content-Type': 'application-json'},
+      data: JSON.stringify({id: id}),
+      success: (data) => {
+        console.log('handling fav food in success');
+      },
+      error: function(err) {
+        console.log('error in handle fav food', err)
+      }
+    });
+
+    this.getFood();
+    this.getCalories();
+    this.getFavorites();
+
     // when a new favorite is added, add it to list
-    var favs = this.state.favorites;
-    if (!favs.includes(foodName)) {
-      favs.push(foodName);
+    // var favs = this.state.favorites;
+    // if (!favs.includes(foodName)) {
+    //   favs.push(foodName);
+
+    //   this.setState({
+    //     favorites: favs
+    //   })
+    // }
+  }
+
+  getFavorites() {
+    $.ajax({
+      url: 'http://localhost:8080/favorites',
+      method: 'GET',
+      success: (data) => {
+        if (data) {
+          var results = [];
+          results.forEach(function(entry) {
+            results.push(entry.name);
+          });
+
+          this.setState({
+            favorites: results
+          })
+          console.log('favorites data: ', data);
+        } else {
+          console.log('no data');
+        }
+      },
+      error: function(err) {
+        console.log('error in get calories');
+      }
+    });
+  }
+
+  handleHate(foodName) { 
+    var hatedList = this.state.hated;
+
+    if (!hatedList.includes(foodName)) {
+      hatedList.push(foodName);
 
       this.setState({
-        favorites: favs
+        hated: hatedList
       })
     }
   }
@@ -167,8 +226,9 @@ class App extends React.Component {
         <Search onSearch={this.onSearch}/>
         {this.state.searchResults ? <SearchResults results={this.state.searchResults} onClick={this.addFood} /> : ''}
         <FoodBar onClick={this.addFood}/>
-        {this.state.foodList ? <FoodList foodList={this.state.foodList} onFavorite={this.handleFavorite} onDelete={this.deleteFood}/> : '...loading'}
+        {this.state.foodList ? <FoodList foodList={this.state.foodList} onFavorite={this.handleFavorite} onHate={this.handleHate} onDelete={this.deleteFood}/> : '...loading'}
         <Favorites favorites={this.state.favorites} />
+        <Hates hates={this.state.hated} />
       </div>
     )
   }
