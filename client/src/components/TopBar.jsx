@@ -18,10 +18,10 @@ class TopBar extends React.Component {
 
   render() {
     return (
-      <div>
-        <div>Total Calories Today: {this.props.calories}</div>
-        <div>You would have to run up and down the HR stairs <b>{Math.round(Number(this.props.fattest.cals) / cals)} times</b> to burn off that tasty <b>{this.props.fattest.name}</b> - wow! Better get started haha!</div>
-        <button type="button" onClick={this.props.onClick}>Click here for a Motivational Quote!</button>
+      <div id="topbar">
+        <div class="in-bar">Total Calories Today: {this.props.calories}</div>
+        <div class="in-bar">You would have to run up and down the HR stairs <b>{Math.round(Number(this.props.fattest.cals) / cals)} times</b> to burn off that tasty <b>{this.props.fattest.name}</b> - wow! Better get started haha!</div>
+        <button class="in-bar" type="button" onClick={this.props.onClick}>Click here for a Motivational Quote!</button>
       </div>
     )
   }

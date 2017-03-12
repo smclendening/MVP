@@ -21,6 +21,15 @@ td, th {
   padding: 6px;
 }
 
+#topbar {
+  text-align: center;
+}
+
+.in-bar {
+  padding-top: 4px;
+  background-color: red;
+}
+
 blockquote {
   background: #f9f9f9;
   border-left: 10px solid #ccc;
@@ -28,6 +37,7 @@ blockquote {
   padding: 0.5em 10px;
   quotes: "\201C""\201D""\2018""\2019";
 }
+
 blockquote:before {
   color: #ccc;
   content: open-quote;
@@ -36,6 +46,8 @@ blockquote:before {
   margin-right: 0.25em;
   vertical-align: -0.4em;
 }
+
 blockquote p {
   display: inline;
 }
+
