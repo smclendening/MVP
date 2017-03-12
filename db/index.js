@@ -6,7 +6,7 @@ var FoodSchema = new Schema({
     name: String,
     cals: String,
     comment: String,
-    id: Number
+    id: String
 });
 
 module.exports = mongoose.model('FoodModel', FoodSchema);
