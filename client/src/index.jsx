@@ -39,7 +39,7 @@ class App extends React.Component {
     this.getCalories();
     this.getFavorites();
     this.getHates();
-    this.getFattest();
+    //this.getFattest();
   }
 
   getFattest() {
@@ -67,6 +67,8 @@ class App extends React.Component {
           this.setState({
             foodList: data
           })
+
+          this.getFattest();
           
         } else {
           console.log('no data');
@@ -275,7 +277,7 @@ class App extends React.Component {
     return (
       <div>
         <h1>Food</h1>
-        <TopBar calories={this.state.caloriesToday} fattest={this.state.fattestFood ? this.state.fattestFood : {cals: 0, name: 'hmm'}}/>
+        <TopBar calories={this.state.caloriesToday} fattest={this.state.fattestFood ? this.state.fattestFood : {cals: 0, name: 'test'}}/>
         <Search onSearch={this.onSearch}/>
         {this.state.searchResults ? <SearchResults results={this.state.searchResults} onClick={this.addFood} /> : ''}
         <FoodBar onClick={this.addFood}/>
