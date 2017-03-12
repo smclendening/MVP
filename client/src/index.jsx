@@ -5,7 +5,8 @@ import FoodList from './components/FoodList.jsx';
 import FoodBar from './components/FoodBar.jsx';
 import Search from './components/Search.jsx';
 import SearchResults from './components/SearchResults.jsx';
-import Favorites from './components/Favorites.jsx'
+import Favorites from './components/Favorites.jsx';
+import helpers from './helpers.js'
 
 class App extends React.Component {
   constructor() {
@@ -14,7 +15,6 @@ class App extends React.Component {
       foodList: null,
       searchResults: null,
       caloriesToday: 0,
-      latestID: 0,
       favorites: []
     };
 
@@ -52,6 +52,10 @@ class App extends React.Component {
     });
   }
 
+  deleteFood() {
+    // delete food from mongo
+  }
+
   getCalories() {
     $.ajax({
       url: 'http://localhost:8080/calories',
@@ -78,11 +82,13 @@ class App extends React.Component {
   }
 
   addFood(food, cals, comment) {
+    var ID = food + helpers().toString();
+    console.log('new food ID: ', ID);
     $.ajax({
       url:'http://localhost:8080/food',
       method: 'POST',
       headers: {'Content-Type': 'application-json'},
-      data: JSON.stringify({name: food, cals: cals, comment: comment, id: this.state.latestID}),
+      data: JSON.stringify({name: food, cals: cals, comment: comment, id: ID}),
       success: (data) => {
         console.log('getting food in success');
       },
@@ -95,8 +101,6 @@ class App extends React.Component {
     this.getFood();
 
     //var currentCalories = this.state.caloriesToday;
-    var lastID = this.state.latestID;
-
     // this.setState({
     //   caloriesToday: currentCalories + Number(cals),
     //   latestID: lastID + 1
