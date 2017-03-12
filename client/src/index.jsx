@@ -4,7 +4,8 @@ import $ from 'jquery';
 import FoodList from './components/FoodList.jsx';
 import FoodBar from './components/FoodBar.jsx';
 import Search from './components/Search.jsx';
-import SearchResults from './components/SearchResults.jsx'
+import SearchResults from './components/SearchResults.jsx';
+import Favorites from './components/Favorites.jsx'
 
 class App extends React.Component {
   constructor() {
@@ -13,12 +14,14 @@ class App extends React.Component {
       foodList: null,
       searchResults: null,
       caloriesToday: 0,
-      latestID: 0
+      latestID: 0,
+      favorites: []
     };
 
     this.addFood = this.addFood.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this.getCalories = this.getCalories.bind(this);
+    this.handleFavorite = this.handleFavorite.bind(this);
   }
 
   componentDidMount() {
@@ -133,6 +136,18 @@ class App extends React.Component {
     //this.renderResults();
   }
 
+  handleFavorite(foodName) {
+    // when a new favorite is added, add it to list
+    var favs = this.state.favorites;
+    if (!favs.includes(foodName)) {
+      favs.push(foodName);
+
+      this.setState({
+        favorites: favs
+      })
+    }
+  }
+
   render() {
     return (
       <div>
@@ -141,7 +156,8 @@ class App extends React.Component {
         <Search onSearch={this.onSearch}/>
         {this.state.searchResults ? <SearchResults results={this.state.searchResults} onClick={this.addFood} /> : ''}
         <FoodBar onClick={this.addFood}/>
-        {this.state.foodList ? <FoodList foodList={this.state.foodList}/> : '...loading'}
+        {this.state.foodList ? <FoodList foodList={this.state.foodList} onFavorite={this.handleFavorite}/> : '...loading'}
+        <Favorites favorites={this.state.favorites} />
       </div>
     )
   }
