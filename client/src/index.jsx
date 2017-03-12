@@ -22,6 +22,7 @@ class App extends React.Component {
     this.onSearch = this.onSearch.bind(this);
     this.getCalories = this.getCalories.bind(this);
     this.handleFavorite = this.handleFavorite.bind(this);
+    this.deleteFood = this.deleteFood.bind(this);
   }
 
   componentDidMount() {
@@ -52,8 +53,24 @@ class App extends React.Component {
     });
   }
 
-  deleteFood() {
-    // delete food from mongo
+  deleteFood(id) {
+    // delete food from mongo using ID
+    console.log(id);
+    $.ajax({
+      url: 'http://localhost:8080/delete',
+      method: 'POST',
+      headers: {'Content-Type': 'application-json'},
+      data: JSON.stringify({id: id}),
+      success: (data) => {
+        console.log('deleting food in success');
+      },
+      error: function(err) {
+        console.log('error in delete food', err)
+      }
+    });
+
+    this.getFood();
+    this.getCalories();
   }
 
   getCalories() {
@@ -96,18 +113,8 @@ class App extends React.Component {
         console.log('error in foodbarclick', err)
       }
     });
-    console.log('getting food outside request');
-    // why does this.getFood() happen outside of the ajax request?
     this.getFood();
-
-    //var currentCalories = this.state.caloriesToday;
-    // this.setState({
-    //   caloriesToday: currentCalories + Number(cals),
-    //   latestID: lastID + 1
-    // })
-
     this.getCalories();
-    console.log('should be getting calories');
   }
 
   onSearch(query) {
@@ -160,7 +167,7 @@ class App extends React.Component {
         <Search onSearch={this.onSearch}/>
         {this.state.searchResults ? <SearchResults results={this.state.searchResults} onClick={this.addFood} /> : ''}
         <FoodBar onClick={this.addFood}/>
-        {this.state.foodList ? <FoodList foodList={this.state.foodList} onFavorite={this.handleFavorite}/> : '...loading'}
+        {this.state.foodList ? <FoodList foodList={this.state.foodList} onFavorite={this.handleFavorite} onDelete={this.deleteFood}/> : '...loading'}
         <Favorites favorites={this.state.favorites} />
       </div>
     )
