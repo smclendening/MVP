@@ -37,6 +37,92 @@ module.exports.food = {
   }
 }
 
+module.exports.favorites = {
+  'get': function(req, res) {
+    res.writeHead(200, {'Content-Type': 'application/json'});
+
+    var promise = FoodModel.find({}).where('favorite').equals(true).exec();
+
+    promise.then(function(favorites) {
+      res.end(JSON.stringify(favorites));
+      console.log('favs in fav get', favorites);
+    })
+    .catch(function(err) {
+      console.log('error in get request', err);
+    })
+  },
+  'post': function(req, res) {
+    var body = '';
+    req.on('data', (chunk) => {
+      body += chunk;
+    });
+    req.on('end', () => {
+
+      var promise = FoodModel.update(JSON.parse(body), { $set: {favorite: true}}).exec();
+
+      promise.then(function() {
+        res.writeHead(201, {'access-control-allow-origin': '*'});
+      })
+      .catch(function(err) {
+        console.log('error in post fav');
+      })
+    })
+  }
+}
+
+module.exports.hates = {
+  'get': function(req, res) {
+    res.writeHead(200, {'Content-Type': 'application/json'});
+
+    var promise = FoodModel.find({}).where('hate').equals(true).exec();
+
+    promise.then(function(hates) {
+      res.end(JSON.stringify(hates));
+      console.log('favs in fav get', hates);
+    })
+    .catch(function(err) {
+      console.log('error in get request', err);
+    })
+  },
+  'post': function(req, res) {
+    var body = '';
+    req.on('data', (chunk) => {
+      body += chunk;
+    });
+    req.on('end', () => {
+
+      var promise = FoodModel.update(JSON.parse(body), { $set: {hate: true}}).exec();
+
+      promise.then(function() {
+        res.writeHead(201, {'access-control-allow-origin': '*'});
+      })
+      .catch(function(err) {
+        console.log('error in post fav');
+      })
+    })
+  }
+}
+
+module.exports.delete = {
+  'post': function(req, res) {
+    var body = '';
+    req.on('data', (chunk) => {
+      body += chunk;
+    });
+    req.on('end', () => {
+
+      var promise = FoodModel.remove(JSON.parse(body)).exec();
+
+      promise.then(function() {
+        res.writeHead(201, {'access-control-allow-origin': '*'});
+      })
+      .catch(function(err) {
+        console.log('error in post fav');
+      })
+    })    
+  }
+}
+
 module.exports.calories = {
   'get': function(req, res) {
     res.writeHead(200, {'Content-Type': 'application/json'});

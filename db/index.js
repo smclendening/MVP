@@ -6,6 +6,8 @@ var FoodSchema = new Schema({
     name: String,
     cals: String,
     comment: String,
+    favorite: Boolean,
+    hate: Boolean,
     id: String
 });
 

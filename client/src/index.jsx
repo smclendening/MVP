@@ -96,6 +96,8 @@ class App extends React.Component {
 
     this.getFood();
     this.getCalories();
+    this.getFavorites();
+    this.getHates();
   }
 
   getCalories() {
@@ -130,7 +132,7 @@ class App extends React.Component {
       url:'http://localhost:8080/food',
       method: 'POST',
       headers: {'Content-Type': 'application-json'},
-      data: JSON.stringify({name: food, cals: cals, comment: comment, id: ID, attributes: ''}),
+      data: JSON.stringify({name: food, cals: cals, comment: comment, favorite: false, hate: false, id: ID}),
       success: (data) => {
         console.log('getting food in success');
       },

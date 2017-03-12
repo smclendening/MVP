@@ -22,6 +22,11 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.get('/food', handler.food.get);
 app.get('/calories', handler.calories.get);
 app.post('/food', handler.food.post);
+app.post('/favorites', handler.favorites.post);
+app.get('/favorites', handler.favorites.get);
+app.post('/hates', handler.hates.post);
+app.get('/hates', handler.hates.get);
+app.post('/delete', handler.delete.post);
 
 app.listen(8080, function() {
   console.log('listening on port 8080');
