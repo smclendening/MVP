@@ -8,7 +8,8 @@ import SearchResults from './components/SearchResults.jsx';
 import Favorites from './components/Favorites.jsx';
 import Hates from './components/Hates.jsx';
 import TopBar from './components/TopBar.jsx';
-import helpers from './helpers.js'
+import Quote from './components/Quote.jsx';
+import helpers from './helpers.js';
 
 class App extends React.Component {
   constructor() {
@@ -19,7 +20,8 @@ class App extends React.Component {
       caloriesToday: 0,
       favorites: [],
       hates: [],
-      fattestFood: null
+      fattestFood: null,
+      showQuote: false
     };
 
     this.addFood = this.addFood.bind(this);
@@ -31,6 +33,7 @@ class App extends React.Component {
     this.handleHate = this.handleHate.bind(this);
     this.deleteFood = this.deleteFood.bind(this);
     this.getFattest = this.getFattest.bind(this);
+    this.handleQuoteClick = this.handleQuoteClick.bind(this);
   }
 
   componentDidMount() {
@@ -273,11 +276,18 @@ class App extends React.Component {
 
   }
 
+  handleQuoteClick() {
+    this.setState({
+      showQuote: !this.state.showQuote
+    })
+  }
+
   render() {
     return (
       <div>
-        <h1>Food</h1>
-        <TopBar calories={this.state.caloriesToday} fattest={this.state.fattestFood ? this.state.fattestFood : {cals: 0, name: 'test'}}/>
+        <div id="top-header"><h1>What'd You Eat?</h1></div>
+        <TopBar onClick={this.handleQuoteClick} calories={this.state.caloriesToday} fattest={this.state.fattestFood ? this.state.fattestFood : {cals: 0, name: 'test'}}/>
+        {this.state.showQuote ? <Quote /> : ''}
         <Search onSearch={this.onSearch}/>
         {this.state.searchResults ? <SearchResults results={this.state.searchResults} onClick={this.addFood} /> : ''}
         <FoodBar onClick={this.addFood}/>
