@@ -17,12 +17,14 @@ class App extends React.Component {
       searchResults: null,
       caloriesToday: 0,
       favorites: [],
-      hated: []
+      hates: []
     };
 
     this.addFood = this.addFood.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this.getCalories = this.getCalories.bind(this);
+    this.getFavorites = this.getFavorites.bind(this);
+    this.getHates = this.getHates.bind(this);
     this.handleFavorite = this.handleFavorite.bind(this);
     this.handleHate = this.handleHate.bind(this);
     this.deleteFood = this.deleteFood.bind(this);
@@ -33,6 +35,7 @@ class App extends React.Component {
     this.getFood();
     this.getCalories();
     this.getFavorites();
+    this.getHates();
   }
 
   getFood() {
@@ -169,16 +172,6 @@ class App extends React.Component {
     this.getFood();
     this.getCalories();
     this.getFavorites();
-
-    // when a new favorite is added, add it to list
-    // var favs = this.state.favorites;
-    // if (!favs.includes(foodName)) {
-    //   favs.push(foodName);
-
-    //   this.setState({
-    //     favorites: favs
-    //   })
-    // }
   }
 
   getFavorites() {
@@ -188,14 +181,14 @@ class App extends React.Component {
       success: (data) => {
         if (data) {
           var results = [];
-          results.forEach(function(entry) {
+          data.forEach(function(entry) {
             results.push(entry.name);
           });
 
           this.setState({
             favorites: results
           })
-          console.log('favorites data: ', data);
+
         } else {
           console.log('no data');
         }
@@ -204,18 +197,57 @@ class App extends React.Component {
         console.log('error in get calories');
       }
     });
+
+    console.log(this.state.favorites);
+
   }
 
-  handleHate(foodName) { 
-    var hatedList = this.state.hated;
+  handleHate(id) { 
+    $.ajax({
+      url: 'http://localhost:8080/hates',
+      method: 'POST',
+      headers: {'Content-Type': 'application-json'},
+      data: JSON.stringify({id: id}),
+      success: (data) => {
+        console.log('handling hated food in success');
+      },
+      error: function(err) {
+        console.log('error in handle hated food', err)
+      }
+    });
 
-    if (!hatedList.includes(foodName)) {
-      hatedList.push(foodName);
+    this.getFood();
+    this.getCalories();
+    this.getFavorites();
+    this.getHates();
+  }
 
-      this.setState({
-        hated: hatedList
-      })
-    }
+  getHates() {
+    $.ajax({
+      url: 'http://localhost:8080/hates',
+      method: 'GET',
+      success: (data) => {
+        if (data) {
+          var results = [];
+          data.forEach(function(entry) {
+            results.push(entry.name);
+          });
+
+          this.setState({
+            hates: results
+          })
+
+        } else {
+          console.log('no data');
+        }
+      },
+      error: function(err) {
+        console.log('error in get calories');
+      }
+    });
+
+    console.log(this.state.hates);
+
   }
 
   render() {
@@ -228,7 +260,7 @@ class App extends React.Component {
         <FoodBar onClick={this.addFood}/>
         {this.state.foodList ? <FoodList foodList={this.state.foodList} onFavorite={this.handleFavorite} onHate={this.handleHate} onDelete={this.deleteFood}/> : '...loading'}
         <Favorites favorites={this.state.favorites} />
-        <Hates hates={this.state.hated} />
+        <Hates hates={this.state.hates} />
       </div>
     )
   }
