@@ -41,6 +41,21 @@ td, th {
   padding: 3px 0;
 }
 
+a:hover, .option:hover {
+  cursor: pointer;
+}
+
+.input {
+  font-size: 13px;
+  margin: 0 3px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+}
+
+#food-record {
+  margin: 9px 0;
+}
+
 #searchresults {
   list-style-type: none;
 }

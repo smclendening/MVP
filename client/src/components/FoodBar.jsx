@@ -37,12 +37,15 @@ class FoodBar extends React.Component {
   render() {
     return (
       <div id="food-bar">
-        <form>
-          Food: <input id="food-input" type="text" onBlur={this.handleFoodChange} />
-          Calories: <input id="cal-input" type="text" onBlur={this.handleCalChange} />
-          Comment: <input id="comment-input" type="text" onBlur={this.handleCommentChange} />
-        <button type="button" onClick={() => this.props.onClick(this.state.food, this.state.calories, this.state.comment)}>Submit</button>
+      <div id="record-message"><b>OR:</b> Record your food manually below:</div>
+      <div id="food-record">
+        <form> 
+          <input className="input" placeholder="Food..." type="text" onBlur={this.handleFoodChange} />
+          <input className="input" type="text" placeholder="Calories..." onBlur={this.handleCalChange} />
+          <input className="input" type="text" placeholder="Comment..." onBlur={this.handleCommentChange} />
+        <button type="button" onClick={() => this.props.onClick(this.state.food, this.state.calories, this.state.comment)}>Record Food</button>
         </form>
+      </div>
       </div>
     )
   }
