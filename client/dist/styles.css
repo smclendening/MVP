@@ -42,7 +42,16 @@ tr {
 }
 
 #favorites, #hates {
+  text-align: left;
+}
+
+#sidebar {
   display: inline-table;
+}
+
+.listheader {
+  padding: 0;
+  margin: 0;
 }
 
 .option {
@@ -72,6 +81,7 @@ a:hover, .option:hover {
 
 .list {
   font-size: 14px;
+  padding: 0;
 }
 
 #searchresults, .list {

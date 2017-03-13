@@ -9,6 +9,7 @@ import Favorites from './components/Favorites.jsx';
 import Hates from './components/Hates.jsx';
 import TopBar from './components/TopBar.jsx';
 import Quote from './components/Quote.jsx';
+import SideBar from './components/Sidebar.jsx';
 import helpers from './helpers.js';
 
 class App extends React.Component {
@@ -301,8 +302,7 @@ class App extends React.Component {
         {this.state.searchResults ? <SearchResults results={this.state.searchResults} onClick={this.addFood} /> : ''}
         <FoodBar onClick={this.addFood}/>
         {this.state.foodList ? <FoodList foodList={this.state.foodList} onFavorite={this.handleFavorite} onHate={this.handleHate} onDelete={this.deleteFood}/> : '...loading'}
-        <Favorites favorites={this.state.favorites} />
-        <Hates hates={this.state.hates} />
+        <SideBar favorites={this.state.favorites} hates={this.state.hates}/>
       </div>
     )
   }
