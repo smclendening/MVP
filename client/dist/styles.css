@@ -1,6 +1,7 @@
 #app {
   background-color: #e6f9ff;
   font-family: 'PT Sans', sans-serif;
+  text-align: center;
 }
 
 #food-list {
@@ -21,13 +22,44 @@ td, th {
   padding: 6px;
 }
 
-#topbar {
+#search {
+  padding: 15px 0;
+  margin: 0 auto;
+}
+
+#search-bar {
+  margin: 0 auto;
+}
+
+#search-input {
+  width: 160px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  font-size: 13px;
+  background-color: white;
+  background-position: 10px 10px; 
+  background-repeat: no-repeat;
+  padding: 8px 2px 6px 4px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+
+#topbar, #quote {
   text-align: center;
 }
 
+#quote {
+  margin: 0 auto;
+  width: 45%;
+  left: 9%;
+  display: table;
+  text-align: center;
+  position: relative;
+}
+
 .in-bar {
-  padding-top: 4px;
-  background-color: red;
+  margin-top: 8px;
 }
 
 blockquote {
@@ -36,6 +68,7 @@ blockquote {
   margin: 1.5em 10px;
   padding: 0.5em 10px;
   quotes: "\201C""\201D""\2018""\2019";
+  width: 50%;
 }
 
 blockquote:before {

@@ -148,34 +148,43 @@ class App extends React.Component {
     this.getFood();
     this.getCalories();
     this.getFattest();
+    this.setState({
+      searchResults: null
+    })
   }
 
   onSearch(query) {
     // search nutritionx API
-    var options = '?results=0:5&fields=item_name,brand_name,nf_calories&appId=1d3d2317&appKey=3c775b5d05a623ee9d8272a46ef870e3'
-    $.ajax({
-      url: 'https://api.nutritionix.com/v1_1/search/' + query + options,
-      method: 'GET',
-      success: (data) => {
-        // {hits: [{fields: {brand_name: '', item_name: '', nf_calories: ''}}]}
-        console.log('api query results: ', data);
-        var results = [];
+    var options = '?results=0:5&fields=item_name,brand_name,nf_calories&appId=1d3d2317&appKey=3c775b5d05a623ee9d8272a46ef870e3';
+    if (query !== '') {
+      $.ajax({
+        url: 'https://api.nutritionix.com/v1_1/search/' + query + options,
+        method: 'GET',
+        success: (data) => {
+          // {hits: [{fields: {brand_name: '', item_name: '', nf_calories: ''}}]}
+          console.log('api query results: ', data);
+          var results = [];
 
-        data.hits.forEach(function(result) {
-          var option = {brand: result.fields.brand_name, item: result.fields.item_name, cals: result.fields.nf_calories};
-          results.push(option);
-        });
+          data.hits.forEach(function(result) {
+            var option = {brand: result.fields.brand_name, item: result.fields.item_name, cals: result.fields.nf_calories};
+            results.push(option);
+          });
 
-        this.setState({
-          searchResults: results
-        });
+          this.setState({
+            searchResults: results
+          });
 
-        console.log(this.state.searchResults);
-      },
-      error: (err) => {
-        console.log('error on api query: ', err);
-      }
-    });
+          console.log(this.state.searchResults);
+        },
+        error: (err) => {
+          console.log('error on api query: ', err);
+        }
+      });
+    } else {
+      this.setState({
+        searchResults: null
+      })
+    }
 
     //this.renderResults();
   }
@@ -268,7 +277,7 @@ class App extends React.Component {
         }
       },
       error: function(err) {
-        console.log('error in get calories');
+        console.log('error in get the calories');
       }
     });
 

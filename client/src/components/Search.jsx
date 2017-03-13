@@ -19,8 +19,8 @@ class Search extends React.Component {
   render() {
     return (
       <div id="search">
-        <form>
-          Search: <input id="search-input" type="text" onKeyUp={this.handleSearch} />
+        <form id="search-bar">
+          <input id="search-input" type="text" placeholder="Search Food Database..." onKeyUp={this.handleSearch} />
         </form>
       </div>
     )
