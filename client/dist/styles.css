@@ -1,4 +1,4 @@
-#app {
+body {
   background-color: #e6f9ff;
   font-family: 'PT Sans', sans-serif;
   text-align: center;
@@ -22,6 +22,10 @@ td, th {
   padding: 6px;
 }
 
+tr {
+  background-color: white;
+}
+
 #search {
   padding: 15px 0 6px 0;
   margin: 0 auto;
@@ -29,6 +33,16 @@ td, th {
 
 #search-bar {
   margin: 0 auto;
+}
+
+#food-list {
+  display: inline-table;
+  float: left;
+  margin: 3px 0px 3px 8px;
+}
+
+#favorites, #hates {
+  display: inline-table;
 }
 
 .option {
@@ -56,7 +70,11 @@ a:hover, .option:hover {
   margin: 9px 0;
 }
 
-#searchresults {
+.list {
+  font-size: 14px;
+}
+
+#searchresults, .list {
   list-style-type: none;
 }
 

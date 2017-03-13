@@ -1,9 +1,9 @@
 import React from 'react';
 
 const Hates = (props) => (
-  <div>
+  <div id="hates">
   <h4>I HATE These Foods!</h4>
-    <ul>
+    <ul className="list">
     {props.hates.map( (food) => <li>{food}</li> )}
     </ul>
   </div>
