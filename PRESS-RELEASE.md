@@ -1,28 +1,28 @@
 # HackReactor MVP #
 
 ## Heading ##
-  > Tri-Tip Counter
+  > What'd You Eat?'
 
 ## Sub-Heading ##
-  > For people who care about how much tri tip they eat.
+  > Keep track of what you ate today.
 
 ## Summary ##
-  > Every day, we all eat a lot of tri tip. With such massive tri tip consumption, it can be extremely difficult to keep track of how much tri tip we have consumed. 
+  > Easily allows you to track your calories using a nutrition database.
 
 ## Problem ##
-  > This app solves the above problem. 
+  > It can be difficult to keep track of what you eat, especially when you eat out at restaurants and don't know exactly what went into your food.'
 
 ## Solution ##
-  > Keep track of what and how much you're eating.
+  > This app allows you to search a database for specific brands of food for their nutritional info. 
 
 ## Quote from You ##
   > "Add later"
 
 ## How to Get Started ##
-  > It's very easy to get started.
+  > Simply search for your food in the database or add the food yourself if you know the nutritional info.
 
 ## Customer Quote ##
   > "Wow - I'm not eating nearly enough tri tip!" - Edward Chan
 
 ## Closing and Call to Action ##
-  > More tri tip!
+  > Eat more cookie butter!
